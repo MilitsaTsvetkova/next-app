@@ -1,0 +1,35 @@
+Next Js
+
+Client side navigation - do not dowload css again, use Link
+=====================
+Client-side Rendering
+-large bundles
+-resource intensive
+-no SEO
+-less secure
+=====================
+Server-side Rendering
+-smaller bundles 
+-resource efficient
+-SEO
+-more secure
+
+BUT
+-we loose interactivity
+Cannot
+-listen to browser events
+-access browser api
+-maintain state 
+-use effects
+
+
+app folder -->server components
+
+================
+Rendering 
+
+-client-side
+
+-server-side
+  --static(at build time)
+  --dynamic(at request time)
