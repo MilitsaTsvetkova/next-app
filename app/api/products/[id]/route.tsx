@@ -1,19 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
+import { json } from "stream/consumers";
 import schema from "../schema";
 
-//prevent caching by adding request object
 export function GET(
   request: NextRequest,
   { params }: { params: { id: number } }
 ) {
   if (params.id > 10) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
+    return NextResponse.json({ error: "Product not found" }, { status: 404 });
   }
-  return NextResponse.json({
-    id: 1,
-    name: "John",
-    email: "john.doe@op.com",
-  });
+
+  return NextResponse.json({ id: params.id, name: "Milk", price: 2.5 });
 }
 
 export async function PUT(
@@ -22,17 +19,18 @@ export async function PUT(
 ) {
   const body = await request.json();
   const validation = schema.safeParse(body);
-  if (!validation.success) {
-    return NextResponse.json(
-      { error: validation.error.errors },
-      { status: 400 }
-    );
-  }
-  if (params.id > 10) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
-  }
 
-  return NextResponse.json({ ...body, id: 1 });
+  if (params.id > 10) {
+    return NextResponse.json({ error: "Product not found" }, { status: 404 });
+  }
+  if (!validation.success) {
+    return NextResponse.json(validation.error.errors, { status: 400 });
+  }
+  return NextResponse.json({
+    id: params.id,
+    name: body.name,
+    price: body.price,
+  });
 }
 
 export function DELETE(
@@ -40,7 +38,7 @@ export function DELETE(
   { params }: { params: { id: number } }
 ) {
   if (params.id > 10) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
+    return NextResponse.json({ error: "Product not found" }, { status: 404 });
   }
   return NextResponse.json({});
 }
