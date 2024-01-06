@@ -10,7 +10,7 @@ export default async function Home() {
       <h1>Hello {session && <span>{session.user!.name}</span>}</h1>
       <ProductCard />
       <Image src={Sandstone} width={200} height={200} alt='Sandstone plateau' />
-      <Image
+      {/* <Image
         src='https://images.unsplash.com/photo-1682687220067-dced9a881b56?q=80&w=2875&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
         fill
         sizes='(max-width: 480px) 100vw, (max-width:768px) 50vw, 33vw'
@@ -18,7 +18,7 @@ export default async function Home() {
         alt='Sandstone plateau'
         quality={75}
         priority
-      />
+      /> */}
     </main>
   )
 }
