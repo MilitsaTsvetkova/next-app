@@ -1,14 +1,25 @@
+'use client'
 import ProductCard from './components/ProductCard/ProductCard'
 import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import Image from 'next/image'
 import Sandstone from '@/public/images/Sandstone.jpg'
 import { Metadata } from 'next'
-export default async function Home() {
-  const session = await getServerSession(authOptions)
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
+//lazy loading only large, heavy components
+const HeavyComponent = dynamic(() => import('./components/HeavyComponent'), {
+  loading: () => <p>Loading</p>,
+  //disable pre-loading on server
+  ssr: false,
+})
+
+export default function Home() {
+  const [showHeavy, setShowHeavy] = useState(false)
+  // const session = await getServerSession(authOptions)
   return (
     <main className='relative h-screen'>
-      <h1>Hello {session && <span>{session.user!.name}</span>}</h1>
+      {/* <h1>Hello {session && <span>{session.user!.name}</span>}</h1> */}
       <ProductCard />
       <Image src={Sandstone} width={200} height={200} alt='Sandstone plateau' />
       {/* <Image
@@ -20,14 +31,27 @@ export default async function Home() {
         quality={75}
         priority
       /> */}
+      <button onClick={() => setShowHeavy(true)}>Show</button>
+      <button
+        onClick={async () => {
+          //lazy load external libraries
+          const _ = (await import('lodash')).default
+          const users = [{ name: 'c' }, { name: 'b' }, { name: 'a' }]
+          const sorted = _.orderBy(users, ['name'])
+          console.log(sorted)
+        }}
+      >
+        Sort
+      </button>
+      {showHeavy && <HeavyComponent />}
     </main>
   )
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const post: any = await fetch('https://jsonplaceholder.typicode.com/posts')
-  return {
-    title: post.title,
-    description: post.body,
-  }
-}
+// export async function generateMetadata(): Promise<Metadata> {
+//   const post: any = await fetch('https://jsonplaceholder.typicode.com/posts')
+//   return {
+//     title: post.title,
+//     description: post.body,
+//   }
+// }
