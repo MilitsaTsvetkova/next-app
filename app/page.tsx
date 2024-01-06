@@ -25,9 +25,9 @@ export default async function Home() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const product: any = await fetch('')
+  const post: any = await fetch('https://jsonplaceholder.typicode.com/posts')
   return {
-    title: product.title,
-    description: product.description,
+    title: post.title,
+    description: post.body,
   }
 }
