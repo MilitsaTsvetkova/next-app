@@ -1,12 +1,9 @@
 'use client'
-import ProductCard from './components/ProductCard/ProductCard'
-import { getServerSession } from 'next-auth'
-import { authOptions } from './api/auth/[...nextauth]/route'
-import Image from 'next/image'
 import Sandstone from '@/public/images/Sandstone.jpg'
-import { Metadata } from 'next'
-import { useState } from 'react'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
+import { useState } from 'react'
+import ProductCard from './components/ProductCard/ProductCard'
 //lazy loading only large, heavy components
 const HeavyComponent = dynamic(() => import('./components/HeavyComponent'), {
   loading: () => <p>Loading</p>,

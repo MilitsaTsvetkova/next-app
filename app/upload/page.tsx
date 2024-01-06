@@ -1,76 +1,76 @@
-"use client";
-import React, { useState } from "react";
-import { CldUploadWidget, CldImage } from "next-cloudinary";
+'use client'
+import React, { useState } from 'react'
+import { CldUploadWidget, CldImage } from 'next-cloudinary'
 interface CloudinaryResult {
-  public_id: string;
+  public_id: string
 }
 
 const UploadPage = () => {
-  const [publicId, setPublicId] = useState("");
+  const [publicId, setPublicId] = useState('')
   return (
     <>
       {publicId && (
         <CldImage
-          width="270"
-          height="180"
+          width='270'
+          height='180'
           src={publicId}
-          sizes="100vw"
-          alt="Description of my image"
+          sizes='100vw'
+          alt='Description of my image'
         />
       )}
       <CldUploadWidget
-        uploadPreset="faxetref"
+        uploadPreset='faxetref'
         options={{
-          sources: ["local"],
+          sources: ['local'],
           multiple: false,
           maxFiles: 5,
           styles: {
             palette: {
-              window: "#464040",
-              sourceBg: "#292222",
-              windowBorder: "#c7a49f",
-              tabIcon: "#cc6600",
-              inactiveTabIcon: "#E8D5BB",
-              menuIcons: "#ebe5db",
-              link: "#ffb107",
-              action: "#ffcc00",
-              inProgress: "#99cccc",
-              complete: "#78b3b4",
-              error: "#ff6666",
-              textDark: "#4C2F1A",
-              textLight: "#D8CFCF",
+              window: '#464040',
+              sourceBg: '#292222',
+              windowBorder: '#c7a49f',
+              tabIcon: '#cc6600',
+              inactiveTabIcon: '#E8D5BB',
+              menuIcons: '#ebe5db',
+              link: '#ffb107',
+              action: '#ffcc00',
+              inProgress: '#99cccc',
+              complete: '#78b3b4',
+              error: '#ff6666',
+              textDark: '#4C2F1A',
+              textLight: '#D8CFCF',
             },
             fonts: {
               default: null,
               "'Merriweather', serif": {
-                url: "https://fonts.googleapis.com/css?family=Merriweather",
+                url: 'https://fonts.googleapis.com/css?family=Merriweather',
                 active: true,
               },
             },
           },
         }}
         onUpload={(result, widget) => {
-          if (result.event !== "success") {
-            return;
+          if (result.event !== 'success') {
+            return
           }
-          const info = result.info as CloudinaryResult;
-          setPublicId(info.public_id);
+          const info = result.info as CloudinaryResult
+          setPublicId(info.public_id)
         }}
       >
         {({ open }) => {
-          function handleOnClick(e) {
-            e.preventDefault();
-            open();
+          function handleOnClick(e: { preventDefault: () => void }) {
+            e.preventDefault()
+            open()
           }
           return (
-            <button className="btn btn-primary" onClick={handleOnClick}>
+            <button className='btn btn-primary' onClick={handleOnClick}>
               Upload an Image
             </button>
-          );
+          )
         }}
       </CldUploadWidget>
     </>
-  );
-};
+  )
+}
 
-export default UploadPage;
+export default UploadPage

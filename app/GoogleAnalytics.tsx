@@ -10,10 +10,9 @@ const GoogleAnalytics = () => {
       />
       <Script id='google-tag-manager'>
         {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-
-gtag('config', 'G-XXXXXXX');`}
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXX');`}
       </Script>
     </>
   )
